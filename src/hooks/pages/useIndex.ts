@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Professor } from "../../@types/professor";
-import { APIService } from "../../services/ApiService";
+import { ApiService } from "../../services/ApiService";
 
 export function useIndex() {
-    const [listaProfessores, setlistaProfessores] = useState<Professor[]>([]);
-    const [nome, setNome] = useState(' ');
-    const [email, setEmail] = useState(' ');
-    const [professorSelecionado, setProfessorSelecionado] = useState<Professor | null>(null);
-    const [mensagem, setMensagem] = useState(' ');
+    const [listaProfessores, setListaProfessores] = useState<Professor[]>([]);
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [professorSelecionado, setProfessorSelecionado] = useState<Professor | null>(null)
+    const [mensagem, setMensagem] = useState('');
 
     useEffect(() => {
-        APIService.get('/professores').then((resposta) => {
-            setlistaProfessores(resposta.data)
+        ApiService.get('/professores/').then((resposta) => {
+            setListaProfessores(resposta.data)
         })
     }, []);
 
     useEffect(() => {
         limparFormulario();
-    }, [professorSelecionado]);
+    }, [professorSelecionado])
 
-    function marcarAula() {
+    function marcarAula(){
         if (professorSelecionado !== null) {
-            if(validarDadosAula()) {
-                APIService.post('/professores/' + professorSelecionado.id + '/aulas', {
+            if (validarDadosAula()) {
+                ApiService.post('/professores/' + professorSelecionado.id +'/aulas', {
                     nome,
                     email
                 }).then(() => {
@@ -39,11 +39,11 @@ export function useIndex() {
 
     function validarDadosAula() {
         return nome.length > 0 && email.length > 0;
-    }   
+    }
 
     function limparFormulario() {
-        setNome(' ');
-        setEmail(' ');
+        setNome('');
+        setEmail('');
     }
 
     return {
@@ -56,6 +56,6 @@ export function useIndex() {
         setProfessorSelecionado,
         marcarAula,
         mensagem,
-        setMensagem,
+        setMensagem
     }
 }

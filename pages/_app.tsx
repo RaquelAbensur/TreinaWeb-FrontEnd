@@ -10,7 +10,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Cabecalho></Cabecalho>
       <Component {...pageProps} />
     </ThemeProvider>
-    
   )
 }
 

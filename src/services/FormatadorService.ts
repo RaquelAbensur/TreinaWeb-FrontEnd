@@ -1,18 +1,19 @@
 export const FormatadorService = {
-    valorMonetario(valor: number): string{
+    valorMonetario(valor: number): string {
         return valor.toLocaleString(
-            'pt-br',
-            {
+            'pt-BR', 
+            { 
                 minimumFractionDigits: 2, 
                 style: 'currency', 
-                currency: 'BRL'
+                currency: 'BRL' 
             }
         );
     },
-    limitarTexto(texto: string, tamanhoMaximo: number): string{
+    limitarTexto(texto: string, tamanhoMaximo: number): string {
         if (texto.length < tamanhoMaximo) {
             return texto;
         }
-        return texto.slice(0,tamanhoMaximo) + '...';
+
+        return texto.slice(0, tamanhoMaximo) + '...';
     }
 }
